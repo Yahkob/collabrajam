@@ -54,31 +54,34 @@ var keyBinding = function(){
     $selectedClass.toggleClass('whiteOnKey') : $selectedClass.toggleClass('blackOnKey');
   });
 };
+
 var keyClicks = function(){
   $('div').click(function(e){
     $.playSound(this.id);
   });
 };
+
+$('.playSynth').click(function(e){
+  $('.playDrums, .playSynth, .both').hide();
+  $('.home, .piano').show(this);
+});
+
+$('.playDrums').click(function(e){
+  $('.both, .playDrums, .playSynth').hide()
+  $('.drums, .home').show(this)
+});
+
+$('.both').click(function(e){
+  $('.playDrums, .playSynth, .both').hide();
+  $('.drums, .piano, .home').show(this);
+});
+
+$('.home').click(function(e){
+  $('.playDrums, .playSynth, .both').show();
+  $('.home, .drums, .piano').hide();
+});
+
 var init = function(){
-  $('.playSynth').click(function(e){
-    $('.playDrums, .playSynth, .both').hide();
-    $('.home, .piano').show(this);
-  });
-
-  $('.playDrums').click(function(e){
-    $('.both, .playDrums, .playSynth').hide()
-    $('.drums, .home').show(this)
-  });
-
-  $('.both').click(function(e){
-    $('.playDrums, .playSynth, .both').hide();
-    $('.drums, .piano, .home').show(this);
-  });
-
-  $('.home').click(function(e){
-    $('.playDrums, .playSynth, .both').show();
-    $('.home, .drums, .piano').hide();
-  });
 
   keyBinding();
   keyClicks();
