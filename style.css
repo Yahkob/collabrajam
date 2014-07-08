@@ -12,6 +12,10 @@
   box-shadow: inset 3px 2px 3px #999, inset -3px 2px 3px #999;
 }
 
+.whiteOnKey {
+  background: #f4f3f3;
+  box-shadow: inset 3px 2px 3px #999, inset -3px 2px 3px #999;
+}
 
 
 .black-key {
@@ -33,5 +37,32 @@
   height:115px;
 }
 
+.blackOnKey {
+  border-bottom-width:2px;
+  height:115px;
+}
 
+.drums {
+  float:right;
+  width:400px;
+}
 
+#snare1 {
+  float: left;
+  height:25px;
+  width:40px;
+  border: black solid 1px;
+  border-radius:40px/25px;
+}
+
+#snareRside {
+  margin: 16px 40px;
+  height: 15px;
+  border: black solid 1px;
+}
+
+#snareBottom {
+  margin: 200px 40px;
+  height: 15px;
+  border: black solid 1px;
+}
