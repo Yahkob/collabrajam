@@ -1,3 +1,19 @@
+.home {
+  color:#555;
+}
+
+.playSynth {
+  color:blue;
+}
+
+.playDrums {
+  color: blue;
+}
+
+.both {
+  color:blue;
+}
+
 .white-key {
   position:default;
   border: black solid 1px;
