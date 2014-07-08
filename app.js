@@ -1,41 +1,46 @@
 $(function(){
 var keyBinding = function(){
+  [20, 81, 65, 87, 83, 68, 82, 70, 84, 71, 89, 72, 74, 73, 75, 79, 76, 186, 219, 222, 221, 13, 220]
   var keys = {
-    81:'c',
-    87:'cS',
-    69:'d',
-    82:'dS',
-    84:'e',
-    89:'f',
-    85:'fS',
-    73:'g',
-    79:'gS',
-    80:'a',
-    219:'aS',
-    65:'b',
-    83:'c2',
-    68:'c2S',
-    70:'d2',
-    71:'d2S',
-    72:'e2',
-    74:'f2',
-    75:'f2S',
-    76:'g2',
-    186:'g2S',
-    222:'a2',
-    90:'a2S',
-    88:'b2'
+    20:'c',
+    81:'cS',
+    65:'d',
+    87:'dS',
+    83:'e',
+    68:'f',
+    82:'fS',
+    70:'g',
+    84:'gS',
+    71:'a',
+    89:'aS',
+    72:'b',
+    74:'c2',
+    73:'c2S',
+    75:'d2',
+    79:'d2S',
+    76:'e2',
+    186:'f2',
+    219:'f2S',
+    222:'g2',
+    221:'g2S',
+    13:'a2',
+    220:'a2S',
+    16:'b2',
+    77:'kick',
+    78:'kick2',
+    66:'snare',
+    67:'china',
+    88:'hihat'
   };
-
   $(document).keydown(function(e) {
     var currentCode = keys[e.keyCode];
-    console.log(currentCode)
-    if(currentCode === undefined){
-      console.error('Not a registered key')
+    var $selectedClass = $('#' + currentCode);
+    if(!$selectedClass.attr('class')){
+      $.playSound(currentCode)
       return;
     }
-    var $selectedClass = $('#' + currentCode);
-    var className = $selectedClass.attr('class').substr(0,9)
+    var className = $selectedClass.attr('class').substr(0,9);
+    console.log('drum')
     $.playSound(currentCode)
     if(className === 'white-key'){
       $selectedClass.toggleClass('whiteOnKey')
@@ -43,11 +48,16 @@ var keyBinding = function(){
     if(className === 'black-key'){
       $selectedClass.toggleClass('blackOnKey')
     }
+
+
   });
 
   $(document).keyup(function(e){
     var currentCode = keys[e.keyCode];
     var $selectedClass = $('#' + currentCode)
+    if(!$selectedClass.attr('class')){
+      return;
+    }
     var className = $selectedClass.attr('class').substr(0,9)
     if(className === 'white-key'){
       $selectedClass.toggleClass('whiteOnKey')
