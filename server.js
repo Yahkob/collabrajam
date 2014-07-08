@@ -6,11 +6,14 @@ var pubnub = require("pubnub").init({
 });
 var app = express();
 
-app.use(express.static('./client'));
+// app.use(express.static('/client'));
+var port = process.env.port || 8080;
+
+var message = "connected to collabraJam on port: " + port;
 
 pubnub.publish({
     channel   : 'collabraJam',
-    message   : "connected",
+    message   : message,
     callback  : function(e) { console.log( "SUCCESS!", e ); },
     error     : function(e) { console.log( "FAILED! RETRY PUBLISH!", e ); }
 });
@@ -22,6 +25,5 @@ pubnub.subscribe({
     }
 });
 
-var port = process.env.port || 8080;
 app.listen(8080);
 console.log('listening on port 8080')
