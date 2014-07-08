@@ -2,7 +2,13 @@
 
   $.extend({
     playSound: function(sound){
-      return $("<embed src='./resources/"+ sound +".mp3' hidden='true' autostart='true' loop='false' class='playSound' active='true'>"
+      $('audio').on('ended',function(){
+        this.remove()
+      })
+      if(sound === undefined){
+        return;
+      }
+      return $("<audio id='player' hidden='true' autoplay='autoplay'  controls='controls'>" + "<source src='./resources/" + sound  +".mp3'/>"
        + "</audio>")
       .appendTo('body');
     }
