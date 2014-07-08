@@ -30,17 +30,19 @@ var keyBinding = function(){
     67:'china',
     88:'hihat'
   };
+
   $(document).keydown(function(e) {
-    var currentCode = keys[e.keyCode];
-    var $selectedClass = $('#' + currentCode);
-    if(!$selectedClass.attr('class')){
+      var currentCode = keys[e.keyCode];
+      var $selectedClass = $('#' + currentCode);
+      if(!$selectedClass.attr('class')){
+        $.playSound(currentCode);
+        return;
+      }
+      var className = $selectedClass.attr('class').substr(0,9);
       $.playSound(currentCode);
-      return;
-    }
-    var className = $selectedClass.attr('class').substr(0,9);
-    $.playSound(currentCode);
-    return _.contains(className,'white-key') ?
-    $selectedClass.toggleClass('whiteOnKey') : $selectedClass.toggleClass('blackOnKey');
+      return _.contains(className,'white-key')?
+      $selectedClass.toggleClass('whiteOnKey'):
+      $selectedClass.toggleClass('blackOnKey');
   });
 
   $(document).keyup(function(e){
@@ -50,8 +52,10 @@ var keyBinding = function(){
       return;
     }
     var className = $selectedClass.attr('class').substr(0,9);
-    _.contains(className,'white-key') ?
-    $selectedClass.toggleClass('whiteOnKey') : $selectedClass.toggleClass('blackOnKey');
+    _.contains(className,'white-key')?
+    $selectedClass.toggleClass('whiteOnKey'):
+    $selectedClass.toggleClass('blackOnKey');
+
   });
 };
 
@@ -61,19 +65,9 @@ var keyClicks = function(){
   });
 };
 
-$('.playSynth').click(function(e){
+$('.playSynth, .playDrums, .both, .home').click(function(e){
   $('.playDrums, .playSynth, .both').hide();
-  $('.home, .piano').show(this);
-});
-
-$('.playDrums').click(function(e){
-  $('.both, .playDrums, .playSynth').hide()
-  $('.drums, .home').show(this)
-});
-
-$('.both').click(function(e){
-  $('.playDrums, .playSynth, .both').hide();
-  $('.drums, .piano, .home').show(this);
+  $('.home, .' + this.id).show(this);
 });
 
 $('.home').click(function(e){
@@ -81,8 +75,8 @@ $('.home').click(function(e){
   $('.home, .drums, .piano').hide();
 });
 
-var init = function(){
 
+var init = function(){
   keyBinding();
   keyClicks();
   $('.home').hide();
