@@ -1,3 +1,9 @@
+var pubnub = PUBNUB.init({
+  publish_key   : 'pub-c-c428a047-ae49-4deb-b1fe-59e809d16826',
+  subscribe_key : 'sub-c-d3fc022c-06ec-11e4-a71e-02ee2ddab7fe'
+})
+
+
 var keyBinding = function(){
   var keys = {
     20:'c',
@@ -32,14 +38,21 @@ var keyBinding = function(){
   };
 
   $(document).keydown(function(e) {
-      var currentCode = keys[e.keyCode];
+    var currentCode = keys[e.keyCode];
+      if(currentCode){
+        pubnub.publish({
+          channel : "collabraJam",
+          message : currentCode
+        });
+      }
+
       var $selectedClass = $('#' + currentCode);
       if(!$selectedClass.attr('class')){
-        $.playSound(currentCode);
+        // $.playSound(currentCode);
         return;
       }
       var className = $selectedClass.attr('class').substr(0,9);
-      $.playSound(currentCode);
+      // $.playSound(currentCode);
       return _.contains(className,'white-key')?
       $selectedClass.toggleClass('whiteOnKey'):
       $selectedClass.toggleClass('blackOnKey');
@@ -55,7 +68,6 @@ var keyBinding = function(){
     _.contains(className,'white-key')?
     $selectedClass.toggleClass('whiteOnKey'):
     $selectedClass.toggleClass('blackOnKey');
-
   });
 };
 
@@ -76,7 +88,12 @@ $('.home').click(function(e){
 });
 
 
+
 var init = function(){
+  pubnub.subscribe({
+    channel : "collabraJam",
+    message : function(key){$.playSound(key)}
+  })
   keyBinding();
   keyClicks();
   $('.home').hide();
@@ -85,5 +102,5 @@ var init = function(){
 };
 
 $(function(){
-  init();
+init();
 });
