@@ -3,7 +3,6 @@ var pubnub = PUBNUB.init({
   subscribe_key : 'sub-c-d3fc022c-06ec-11e4-a71e-02ee2ddab7fe'
 })
 
-
 var keyBinding = function(){
   var keys = {
     20:'c',
@@ -87,8 +86,6 @@ $('.home').click(function(e){
   $('.home, .drums, .piano').hide();
 });
 
-
-
 var init = function(){
   pubnub.subscribe({
     channel : "collabraJam",
@@ -102,5 +99,5 @@ var init = function(){
 };
 
 $(function(){
-init();
+  init();
 });
