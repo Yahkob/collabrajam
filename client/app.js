@@ -72,7 +72,11 @@ var keyBinding = function(){
 
 var keyClicks = function(){
   $('div').click(function(e){
-    $.playSound(this.id);
+    pubnub.publish({
+          channel : "collabraJam",
+          message : this.id
+        });
+      }
   });
 };
 
