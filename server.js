@@ -25,5 +25,5 @@ pubnub.subscribe({
     }
 });
 
-app.listen(8080);
+port.listen(8080);
 console.log('listening on port 8080')
