@@ -6,7 +6,7 @@ var pubnub = require("pubnub").init({
 });
 var app = express();
 
-app.use(express.static('./client/index.html'));
+app.use(express.static('./client/'));
 var port = process.env.PORT || 8080;
 
 var message = "connected to collabraJam on port: " + port;
