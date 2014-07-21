@@ -1,0 +1,33 @@
+Mon Jul 21 2014 16:39:05 GMT-0700 (MST):
+{ [Error: Invalid site name]
+  stack: [Getter/Setter],
+  __frame: 
+   { name: 'lookupSiteNameAndWebSpace__20',
+     line: 871,
+     file: '/usr/local/lib/node_modules/azure-cli/lib/commands/asm/websites/websitesclient._js',
+     prev: 
+      { name: 'siteAppsettings_addCommand__2',
+        line: 60,
+        file: '/usr/local/lib/node_modules/azure-cli/lib/commands/asm/site.appsetting._js',
+        prev: undefined,
+        active: false,
+        offset: 13,
+        col: 4 },
+     active: false,
+     offset: 3,
+     col: 4 },
+  rawStack: [Getter] }
+Error: Invalid site name
+    at ___ (/usr/local/lib/node_modules/azure-cli/lib/commands/asm/websites/websitesclient._js:842:24)
+    at ___ (/usr/local/lib/node_modules/azure-cli/node_modules/streamline/lib/callbacks/runtime.js:85:13)
+    at /usr/local/lib/node_modules/azure-cli/lib/util/interaction._js:140:7
+    at ReadStream.<anonymous> (/usr/local/lib/node_modules/azure-cli/node_modules/commander/lib/commander.js:763:5)
+    at ReadStream.g (events.js:180:16)
+    at ReadStream.emit (events.js:95:17)
+    at ReadStream.<anonymous> (_stream_readable.js:748:14)
+    at ReadStream.emit (events.js:92:17)
+    at emitReadable_ (_stream_readable.js:410:10)
+    at emitReadable (_stream_readable.js:406:5)
+    at lookupSiteNameAndWebSpace__20 (/usr/local/lib/node_modules/azure-cli/lib/commands/asm/websites/websitesclient._js:874:4)
+    at siteAppsettings_addCommand__2 (/usr/local/lib/node_modules/azure-cli/lib/commands/asm/site.appsetting._js:73:4)
+
