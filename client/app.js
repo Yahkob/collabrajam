@@ -1,7 +1,6 @@
-var process = require('../server.js')
 var pubnub = PUBNUB.init({
-  publish_key   : process.env.pubkey,
-  subscribe_key : process.env.subkey
+  publish_key   : 'pub-c-c428a047-ae49-4deb-b1fe-59e809d16826',
+  subscribe_key : 'sub-c-d3fc022c-06ec-11e4-a71e-02ee2ddab7fe'
 });
 
 var keyBinding = function(){
