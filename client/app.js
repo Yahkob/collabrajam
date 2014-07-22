@@ -47,11 +47,9 @@ var keyBinding = function(){
 
       var $selectedClass = $('#' + currentCode);
       if(!$selectedClass.attr('class')){
-        // $.playSound(currentCode);
         return;
       }
       var className = $selectedClass.attr('class').substr(0,9);
-      // $.playSound(currentCode);
       return _.contains(className,'white-key')?
       $selectedClass.toggleClass('whiteOnKey'):
       $selectedClass.toggleClass('blackOnKey');
@@ -60,19 +58,21 @@ var keyBinding = function(){
   $(document).keyup(function(e){
     var currentCode = keys[e.keyCode];
     var $selectedClass = $('#' + currentCode);
-    if(!$selectedClass.attr('class')){
-      return;
+    if($selectedClass.attr('class')){
+      var className = $selectedClass.attr('class').substr(0,9);
+      _.contains(className,'white-key')?
+      $selectedClass.toggleClass('whiteOnKey'):
+      $selectedClass.toggleClass('blackOnKey');
     }
-    var className = $selectedClass.attr('class').substr(0,9);
-    _.contains(className,'white-key')?
-    $selectedClass.toggleClass('whiteOnKey'):
-    $selectedClass.toggleClass('blackOnKey');
   });
 };
 
 var keyClicks = function(){
   $('div').click(function(e){
-    $.playSound(this.id);
+    pubnub.publish({
+      channel : "collabraJam",
+      message : this.id
+    });
   });
 };
 
