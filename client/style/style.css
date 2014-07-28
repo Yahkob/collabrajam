@@ -1,8 +1,10 @@
-.home {
+#home {
   color:#555;
+  display: none;
 }
 
 .piano {
+  display: none;
   margin:0 auto;
   position: relative;
   height: 142px;
@@ -13,15 +15,8 @@
   box-shadow: 3px 2px 3px #999, -3px 2px 3px #999;
   z-index: 2px;
 }
-.playSynth {
-  color:blue;
-}
 
-.playDrums {
-  color: blue;
-}
-
-.both {
+.select {
   color:blue;
 }
 
@@ -72,6 +67,7 @@
 }
 
 .drums {
+  display: none;
   margin: 9px -50px;
   float: right;
   width: 400px;

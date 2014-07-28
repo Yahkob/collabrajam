@@ -38,67 +38,89 @@ var keyBinding = function(){
 
   document.addEventListener('keydown', function(e) {
     var currentCode = keys[e.keyCode];
-      if(currentCode){
+      if(!currentCode){
+        return;
+      }
+      else{
         pubnub.publish({
           channel : "collabraJam",
           message : currentCode
         });
       }
-      var currentClass = document.querySelector('#' + currentCode).className;
-      if(!currentClass){
+      var currentId = document.querySelector('#' + currentCode);
+      if(!currentId.className){
         return;
       }
-      console.log(currentClass);
-      return _.contains(currentClass,'white-key')?
-      document.querySelector('#' + currentCode).className += ' whiteOnKey':
-      document.querySelector('#' + currentCode).className += ' blackOnKey';
+      if(currentId.className.split(" ").length === 1){
+        return currentId.className === 'white-key' ?
+        currentId.className += ' whiteOnKey' :
+        currentId.className += ' blackOnKey';
+      }
   });
 
-  // $(document).keyup(function(e){
-  //   var currentCode = keys[e.keyCode];
-  //   var $selectedClass = $('#' + currentCode);
-  //   if($selectedClass.attr('class')){
-  //     var className = $selectedClass.attr('class').substr(0,9);
-  //     _.contains(className,'white-key')?
-  //     $selectedClass.toggleClass('whiteOnKey'):
-  //     $selectedClass.toggleClass('blackOnKey');
-  //   }
-  // });
+  document.addEventListener('keyup', function(e){
+    var currentCode = keys[e.keyCode];
+    if(!currentCode){
+      return;
+    }
+    var currentId = document.querySelector('#' + currentCode);
+      return _.contains(currentId.className,'whiteOnKey') ?
+      currentId.className = 'white-key' :
+      currentId.className = 'black-key';
+  });
 };
 
 var keyClicks = function(){
-  $('div').click(function(e){
-    pubnub.publish({
-      channel : "collabraJam",
-      message : this.id
+  _.each(document.querySelectorAll('div'), function(insturment){
+    insturment.addEventListener('click', function(e){
+      pubnub.publish({
+        channel : "collabraJam",
+        message : this.id
+      });
     });
   });
 };
-
-$('.playSynth, .playDrums, .both, .home').click(function(e){
-  $('.playDrums, .playSynth, .both').hide();
-  $('.home, .' + this.id).show(this);
+  
+var options = document.querySelectorAll('.select');
+var home = document.body.querySelector('#home');
+var insturments = document.body.querySelectorAll('.both');
+var toggleElement = function(currentTarget, elements, visibility){
+  _.each(elements,function(element){
+    element.style.display = visibility;
+  });
+  if(currentTarget){
+    home.style.display = "inline";
+    _.each(document.querySelectorAll('.' + currentTarget.id),function(insturment){
+      insturment.style.display = "block";
+    });
+  }
+};
+_.each(options, function(element){
+  element.addEventListener('click', function(e){
+    toggleElement(this, options, 'none');
+  });
 });
 
-$('.home').click(function(e){
-  $('.playDrums, .playSynth, .both').show();
-  $('.home, .drums, .piano').hide();
+  home.addEventListener('click', function(e){
+    home.style.display = 'none';
+    toggleElement(null, options, 'block');
+    toggleElement(null, insturments, 'none');
 });
 
 var init = function(){
-  pubnub.subscribe({
-    channel : "collabraJam",
-    message : function(key){
-      playSound(key);
-    }
-  });
-  keyBinding();
-  keyClicks();
-  $('.home').hide();
-  $('.piano').hide();
-  $('.drums').hide();
-};
-
-$(function(){
-  init();
-});
+  if(document.readyState !== 'complete'){
+    setTimeout(init,123);
+  }
+  else{
+    console.log('ready');
+    pubnub.subscribe({
+      channel : "collabraJam",
+      message : function(key){
+        playSound(key);
+      }
+    });
+    keyBinding();
+    keyClicks();
+  }
+};  
+init();

@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+
 <html>
   <head>
     <title>Collabrajam</title>
     <link rel="stylesheet" type="text/css" href="./style/style.css"/>
-    <h1>Collabrajam</h1>
-    <h4 id="home" class="home">Select an insturment</h4>
-    <h3 id="piano" class="playSynth">Play keyboard</h3>
-    <h3 id="drums" class="playDrums">Play drums</h3>
-    <h3 id="drums, .piano" class="both">Play both!</h3>
   </head>
   <body>
-  <audio id="player"></audio>
-    <div class="piano">
+    <h1>Collabrajam</h1>
+    <h4 id="home" class="insturments">Select an insturment</h4>
+    <h3 id="piano" class="select">Play keyboard</h3>
+    <h3 id="drums" class="select">Play drums</h3>
+    <h3 id="both" class="select">Play both!</h3>
+    <audio id="player"></audio>
+    <div class="piano both">
       <div id="c" class="white-key"></div>
       <div id="cS" class="black-key"></div>
       <div id="d" class="white-key"></div>
@@ -38,7 +38,7 @@
       <div id="b2" class="white-key"></div>
    </div>
 
-   <div class="drums">
+   <div class="drums both">
      <div id="snare">snare</div>
      <div id="kick">dbl bass</div>
      <div id="kick2">dbl bass</div>
@@ -47,7 +47,6 @@
    </div>
 
     <script src="./bower_components/pubnub/web/pubnub.min.js"></script>
-    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="playSound.js"></script>
     <script src="./bower_components/lodash/dist/lodash.min.js"></script>
     <script src="app.js"></script>
