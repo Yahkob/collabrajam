@@ -2,7 +2,7 @@ var pubnub = PUBNUB.init({
   publish_key   : 'pub-c-c428a047-ae49-4deb-b1fe-59e809d16826',
   subscribe_key : 'sub-c-d3fc022c-06ec-11e4-a71e-02ee2ddab7fe'
 });
-
+var outerWindow = this;
 var keyBinding = function(){
   var keys = {
     20:'c',
@@ -36,7 +36,7 @@ var keyBinding = function(){
     88:'hihat'
   };
 
-  $(document).keydown(function(e) {
+  document.addEventListener('keydown', function(e) {
     var currentCode = keys[e.keyCode];
       if(currentCode){
         pubnub.publish({
@@ -44,27 +44,26 @@ var keyBinding = function(){
           message : currentCode
         });
       }
-
-      var $selectedClass = $('#' + currentCode);
-      if(!$selectedClass.attr('class')){
+      var currentClass = document.querySelector('#' + currentCode).className;
+      if(!currentClass){
         return;
       }
-      var className = $selectedClass.attr('class').substr(0,9);
-      return _.contains(className,'white-key')?
-      $selectedClass.toggleClass('whiteOnKey'):
-      $selectedClass.toggleClass('blackOnKey');
+      console.log(currentClass);
+      return _.contains(currentClass,'white-key')?
+      document.querySelector('#' + currentCode).className += ' whiteOnKey':
+      document.querySelector('#' + currentCode).className += ' blackOnKey';
   });
 
-  $(document).keyup(function(e){
-    var currentCode = keys[e.keyCode];
-    var $selectedClass = $('#' + currentCode);
-    if($selectedClass.attr('class')){
-      var className = $selectedClass.attr('class').substr(0,9);
-      _.contains(className,'white-key')?
-      $selectedClass.toggleClass('whiteOnKey'):
-      $selectedClass.toggleClass('blackOnKey');
-    }
-  });
+  // $(document).keyup(function(e){
+  //   var currentCode = keys[e.keyCode];
+  //   var $selectedClass = $('#' + currentCode);
+  //   if($selectedClass.attr('class')){
+  //     var className = $selectedClass.attr('class').substr(0,9);
+  //     _.contains(className,'white-key')?
+  //     $selectedClass.toggleClass('whiteOnKey'):
+  //     $selectedClass.toggleClass('blackOnKey');
+  //   }
+  // });
 };
 
 var keyClicks = function(){
@@ -89,8 +88,10 @@ $('.home').click(function(e){
 var init = function(){
   pubnub.subscribe({
     channel : "collabraJam",
-    message : function(key){$.playSound(key)}
-  })
+    message : function(key){
+      playSound(key);
+    }
+  });
   keyBinding();
   keyClicks();
   $('.home').hide();
