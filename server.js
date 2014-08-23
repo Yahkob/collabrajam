@@ -1,5 +1,5 @@
 var express     = require('express')
-var fs = require('fs')
+var fs = require('fs');
 var pubnub = require("pubnub").init({
     publish_key   : process.env.pubkey,
     subscribe_key : process.env.subkey
