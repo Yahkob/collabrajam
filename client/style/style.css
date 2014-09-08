@@ -125,3 +125,7 @@
   border-radius: 50px;
   padding: 15px;
 }
+
+.drum-hit {
+  background: red;
+}

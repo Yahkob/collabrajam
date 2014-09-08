@@ -49,7 +49,8 @@ var keyBinding = function(){
         });
       }
       var currentId = document.querySelector('#' + currentCode);
-      if(!currentId.className){
+      if(currentId.parentElement.className.split(" ")[0] === "drums"){
+        currentId.className += 'drum-hit';
         return;
       }
       if(currentId.className.split(" ").length === 1){
@@ -65,6 +66,10 @@ var keyBinding = function(){
       return;
     }
     var currentId = document.querySelector('#' + currentCode);
+      if(kick.parentElement.className.split(" ")[0] === "drums"){
+        currentId.className = "";
+        return;
+      }
       return _.contains(currentId.className,'whiteOnKey') ?
       currentId.className = 'white-key' :
       currentId.className = 'black-key';
