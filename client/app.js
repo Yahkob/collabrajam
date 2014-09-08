@@ -66,7 +66,7 @@ var keyBinding = function(){
       return;
     }
     var currentId = document.querySelector('#' + currentCode);
-      if(kick.parentElement.className.split(" ")[0] === "drums"){
+      if(currentId.parentElement.className.split(" ")[0] === "drums"){
         currentId.className = "";
         return;
       }
