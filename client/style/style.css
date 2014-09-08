@@ -127,5 +127,5 @@
 }
 
 .drum-hit {
-  background: red;
+  background: red !important;
 }
